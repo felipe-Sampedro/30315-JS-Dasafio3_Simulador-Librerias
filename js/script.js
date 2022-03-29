@@ -242,6 +242,45 @@ calcular.onclick = () => {
 			position: "center", // `left`, `center` or `right`
 			stopOnFocus: true, // Prevents dismissing of toast on hover
 		  }).showToast();
+
+
+		  let valido = dayjs().format('DD/MM/YYYY h:mm:ss A')
+		  console.log(valido)
+
+
+		  let timerInterval
+		  Swal.fire({
+			title: `Oferta limitada! a partir de ${valido}`,
+			html: 'Esta oferta solo sera valida por los proximos 15 segundos: <b></b>',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonText: 'Si, Aceptar',
+			cancelButtonText: 'No, Rechazar',
+			reverseButtons: true,
+			timer: 15000,
+			timerProgressBar: true,
+/* 			didOpen: () => {
+			  Swal.showLoading()
+			  const b = Swal.getHtmlContainer().querySelector('b')
+			  timerInterval = setInterval(() => {
+				b.textContent = Swal.getTimerLeft()
+			  }, 100)
+			}, */
+			willClose: () => {
+			  clearInterval(timerInterval)
+			}
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire(
+				'Excelente!',
+				'Has aceptado el plan de pagos.',
+				'Proceso exitoso'
+			  )
+			}
+		  })
+
+
+
 } 
 	
 // para mostrar el valor seleccionados en los inputs de rango
